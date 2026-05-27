@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status — Athena CI/CD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e2e2ec;--text-dim:#8888a0;--accent:#6c5ce7;--accent-glow:#a78bfa;--green:#34d399;--amber:#fbbf24;--red:#f87171;--font:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+        .container{max-width:780px;margin:0 auto;padding:0 24px}
+        nav{padding:20px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:20px 24px}
+        .logo{font-weight:700;font-size:18px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}.logo span{color:var(--accent-glow)}
+        nav a{color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:28px;transition:color .2s}nav a:hover{color:var(--text)}
+        .content{padding:60px 0 80px}
+        h1{font-size:36px;letter-spacing:-1px;margin-bottom:12px}
+        .subtitle{color:var(--text-dim);font-size:16px;margin-bottom:48px}
+        .status-banner{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:40px;display:flex;align-items:center;gap:16px}
+        .status-dot{width:14px;height:14px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);flex-shrink:0}
+        .status-dot.degraded{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+        .status-dot.down{background:var(--red);box-shadow:0 0 12px var(--red)}
+        .status-banner h2{font-size:20px;margin:0}
+        .status-banner p{margin:0;color:var(--text-dim);font-size:14px}
+        .services{margin-top:32px}
+        .service{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--border)}
+        .service:last-child{border-bottom:none}
+        .service-name{font-size:15px}
+        .service-status{font-family:var(--mono);font-size:13px;padding:4px 12px;border-radius:6px}
+        .service-status.operational{background:rgba(52,211,153,0.1);color:var(--green);border:1px solid rgba(52,211,153,0.2)}
+        .service-status.degraded{background:rgba(251,191,36,0.1);color:var(--amber);border:1px solid rgba(251,191,36,0.2)}
+        .service-status.down{background:rgba(248,113,113,0.1);color:var(--red);border:1px solid rgba(248,113,113,0.2)}
+        h3{font-size:18px;margin:40px 0 16px}
+        p{margin-bottom:12px;color:var(--text-dim);font-size:15px}
+        .timestamp{font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-top:40px}
+        footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;max-width:960px;margin:0 auto}
+        footer a{color:var(--text-dim);text-decoration:none;font-size:13px;margin:0 12px}footer a:hover{color:var(--text)}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">athena<span>ci/cd</span></a>
+        <div>
+            <a href="docs.html">Docs</a>
+            <a href="support.html">Support</a>
+            <a href="status.html">Status</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="content">
+            <h1>System Status</h1>
+            <p class="subtitle">Current operational status of Athena CI/CD services.</p>
+
+            <div class="status-banner">
+                <div class="status-dot" id="overall-dot"></div>
+                <div>
+                    <h2 id="overall-status">All Systems Operational</h2>
+                    <p id="overall-desc">All Athena services are running normally.</p>
+                </div>
+            </div>
+
+            <div class="services">
+                <div class="service">
+                    <span class="service-name">Webhook Ingestion</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+                <div class="service">
+                    <span class="service-name">Event Processing Pipeline</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+                <div class="service">
+                    <span class="service-name">GitHub API Integration</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+                <div class="service">
+                    <span class="service-name">Database (PostgreSQL)</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+                <div class="service">
+                    <span class="service-name">Message Bus (Redis)</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+                <div class="service">
+                    <span class="service-name">Workflow Dispatch</span>
+                    <span class="service-status operational">Operational</span>
+                </div>
+            </div>
+
+            <h3>Incident History</h3>
+            <p>No recent incidents.</p>
+
+            <p class="timestamp" id="timestamp"></p>
+        </section>
+    </div>
+    <footer>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+        <a href="index.html">Home</a>
+    </footer>
+    <script>
+        document.getElementById('timestamp').textContent = 'Last updated: ' + new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC';
+    </script>
+</body>
+</html>

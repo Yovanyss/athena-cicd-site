@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation — Athena CI/CD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0a0a0f; --surface:#12121a; --border:#1e1e2e; --text:#e2e2ec; --text-dim:#8888a0; --accent:#6c5ce7; --accent-glow:#a78bfa; --green:#34d399; --font:'DM Sans',system-ui,sans-serif; --mono:'JetBrains Mono',monospace; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+        .container{max-width:780px;margin:0 auto;padding:0 24px}
+        nav{padding:20px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:20px 24px}
+        .logo{font-weight:700;font-size:18px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}
+        .logo span{color:var(--accent-glow)}
+        nav a{color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:28px;transition:color .2s}
+        nav a:hover{color:var(--text)}
+        .content{padding:60px 0 80px}
+        h1{font-size:36px;letter-spacing:-1px;margin-bottom:12px}
+        .subtitle{color:var(--text-dim);font-size:16px;margin-bottom:48px}
+        h2{font-size:22px;letter-spacing:-0.3px;margin:40px 0 16px;padding-top:24px;border-top:1px solid var(--border)}
+        h2:first-of-type{border-top:none;margin-top:0}
+        h3{font-size:16px;margin:24px 0 8px;color:var(--accent-glow)}
+        p{margin-bottom:16px;color:var(--text-dim);font-size:15px}
+        code{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--border);padding:2px 7px;border-radius:5px;color:var(--green)}
+        pre{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;overflow-x:auto;margin:16px 0 24px;font-family:var(--mono);font-size:13px;line-height:1.7;color:var(--text)}
+        ul,ol{margin:0 0 16px 20px;color:var(--text-dim);font-size:15px}
+        li{margin-bottom:6px}
+        table{width:100%;border-collapse:collapse;margin:16px 0 24px;font-size:14px}
+        th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--border);color:var(--text);font-weight:600}
+        td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text-dim)}
+        td code{font-size:12px}
+        footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;max-width:960px;margin:0 auto}
+        footer a{color:var(--text-dim);text-decoration:none;font-size:13px;margin:0 12px}
+        footer a:hover{color:var(--text)}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">athena<span>ci/cd</span></a>
+        <div>
+            <a href="docs.html">Docs</a>
+            <a href="support.html">Support</a>
+            <a href="status.html">Status</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="content">
+            <h1>Documentation</h1>
+            <p class="subtitle">Everything you need to know about installing, configuring, and using Athena CI/CD.</p>
+
+            <h2>Quick Start</h2>
+            <p>Athena works out of the box with zero configuration:</p>
+            <ol>
+                <li>Install Athena from the <a href="https://github.com/marketplace/athena-cicd" style="color:var(--accent-glow)">GitHub Marketplace</a></li>
+                <li>Select the repositories you want Athena to analyze</li>
+                <li>Open a pull request — Athena will create Check Runs with its analysis</li>
+            </ol>
+            <p>That's it. No YAML to write, no dashboard to visit, no commands to run.</p>
+
+            <h2>How It Works</h2>
+            <p>When a pull request is opened or updated, Athena runs a 6-phase pipeline:</p>
+
+            <h3>Phase 1 — Orchestrator</h3>
+            <p>Receives the webhook from GitHub, verifies the HMAC signature, creates a durable processing record in the database, and coordinates the remaining phases.</p>
+
+            <h3>Phase 2 — Change Intelligence (CIS)</h3>
+            <p>Classifies every changed file by category (source, test, config, docs, infra, migration, etc.) and determines the <strong>intent</strong> of the PR. Supported intents:</p>
+            <ul>
+                <li><code>DOCS_ONLY</code> — Only documentation files changed</li>
+                <li><code>TEST_ONLY</code> — Only test files changed</li>
+                <li><code>FRONTEND_ONLY</code> / <code>BACKEND_ONLY</code> — Single-domain changes</li>
+                <li><code>DATABASE_CHANGE</code> — Migrations or schema changes</li>
+                <li><code>SECURITY_SENSITIVE_CHANGE</code> — Auth, crypto, or permission changes</li>
+                <li><code>SHARED_MODULE_CHANGE</code> — Core/shared code that affects multiple domains</li>
+                <li><code>INFRA_CHANGE</code> / <code>CI_WORKFLOW_CHANGE</code> / <code>DEPENDENCY_CHANGE</code></li>
+                <li><code>MIXED_CHANGE</code> — Multiple categories affected</li>
+            </ul>
+
+            <h3>Phase 3 — CI Planning (CPRS)</h3>
+            <p>Generates an execution plan based on the CIS report. Each of 14 possible CI jobs is classified as:</p>
+            <ul>
+                <li><strong>Required</strong> — Must run based on the changes</li>
+                <li><strong>Optional</strong> — Recommended but not critical</li>
+                <li><strong>Deferred</strong> — Can wait for a later stage</li>
+                <li><strong>Skipped</strong> — Not affected by this PR</li>
+            </ul>
+
+            <h3>Phase 4 — CI Execution (CIES)</h3>
+            <p>Dispatches the planned jobs via <code>workflow_dispatch</code> to your GitHub Actions workflow, or operates in dry-run mode showing exactly what would run.</p>
+
+            <h3>Phase 5 — Validation & Feedback (VFS)</h3>
+            <p>Analyzes CI execution results, detects failure patterns, computes per-module health scores, and identifies flaky test signals.</p>
+
+            <h3>Phase 6 — Learning & Evolution (LES)</h3>
+            <p>Converts validation feedback into autonomous routing adjustments. If a module keeps failing, Athena increases the validation floor for future PRs touching that module.</p>
+
+            <h2>GitHub Checks</h2>
+            <p>Athena creates multiple Check Runs on each PR, one per phase:</p>
+            <table>
+                <tr><th>Check Name</th><th>Phase</th><th>Shows</th></tr>
+                <tr><td>Athena CI/CD Orchestrator</td><td>1</td><td>Pipeline status and pre-analysis summary</td></tr>
+                <tr><td>Athena Change Intelligence</td><td>2</td><td>Intent, confidence, impact level, affected domains</td></tr>
+                <tr><td>Athena CI/CD Execution Plan</td><td>3</td><td>Required/optional/skipped jobs with rationale</td></tr>
+                <tr><td>Athena CI/CD Execution</td><td>4</td><td>Dispatch status, workflow inputs, job list</td></tr>
+                <tr><td>Athena Validation & Feedback</td><td>5</td><td>CI outcomes, failure patterns, module health</td></tr>
+                <tr><td>Athena Learning & Evolution</td><td>6</td><td>Recommendations and autonomous adjustments</td></tr>
+            </table>
+
+            <h2>Configuration</h2>
+            <p>Athena works with zero configuration, but you can customize behavior with environment variables on your hosting platform:</p>
+            <table>
+                <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+                <tr><td><code>ENABLE_WORKFLOW_DISPATCH</code></td><td><code>false</code></td><td>Actually trigger GitHub Actions (vs dry-run)</td></tr>
+                <tr><td><code>ENABLE_MANUAL_COMMANDS</code></td><td><code>false</code></td><td>Enable <code>/athena</code> commands in PR comments</td></tr>
+                <tr><td><code>ENABLE_INTRO_COMMENTS</code></td><td><code>false</code></td><td>Post a welcome comment on new PRs</td></tr>
+                <tr><td><code>ENABLE_LEARNING_CHECKS</code></td><td><code>true</code></td><td>Create Phase 6 Check Run with learning output</td></tr>
+            </table>
+
+            <h2>Dynamic CI Workflow</h2>
+            <p>To enable real CI execution, add the Athena dynamic workflow to your repository:</p>
+            <ol>
+                <li>Copy <code>athena-dynamic-ci.yml</code> to <code>.github/workflows/</code> in your repo</li>
+                <li>Replace the <code>echo</code> placeholders with your real CI commands</li>
+                <li>Set <code>ENABLE_WORKFLOW_DISPATCH=true</code></li>
+            </ol>
+            <p>Athena dispatches this workflow with a JSON list of jobs to run. Each job uses an <code>if: contains(...)</code> guard so only the relevant jobs execute.</p>
+
+            <h2>Permissions Required</h2>
+            <p>Athena requires these GitHub App permissions:</p>
+            <ul>
+                <li><strong>Checks</strong>: Write — to create and update Check Runs</li>
+                <li><strong>Contents</strong>: Read — to read file lists and config files</li>
+                <li><strong>Pull Requests</strong>: Write — to post comments (when enabled)</li>
+                <li><strong>Metadata</strong>: Read — to access repository information</li>
+                <li><strong>Actions</strong>: Write — to dispatch workflows (when enabled)</li>
+                <li><strong>Statuses</strong>: Write — to set commit statuses</li>
+            </ul>
+
+            <h2>Data & Privacy</h2>
+            <p>Athena processes webhook metadata (file names, SHAs, PR titles) to make routing decisions. It does <strong>not</strong> read or store your source code. See our <a href="privacy.html" style="color:var(--accent-glow)">Privacy Policy</a> for full details.</p>
+        </section>
+    </div>
+    <footer>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+        <a href="index.html">Home</a>
+    </footer>
+</body>
+</html>

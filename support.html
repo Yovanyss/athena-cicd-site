@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Athena CI/CD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e2e2ec;--text-dim:#8888a0;--accent:#6c5ce7;--accent-glow:#a78bfa;--green:#34d399;--font:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+        .container{max-width:780px;margin:0 auto;padding:0 24px}
+        nav{padding:20px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:20px 24px}
+        .logo{font-weight:700;font-size:18px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}.logo span{color:var(--accent-glow)}
+        nav a{color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:28px;transition:color .2s}nav a:hover{color:var(--text)}
+        .content{padding:60px 0 80px}
+        h1{font-size:36px;letter-spacing:-1px;margin-bottom:12px}
+        .subtitle{color:var(--text-dim);font-size:16px;margin-bottom:48px}
+        h2{font-size:20px;margin:32px 0 12px}
+        p{margin-bottom:16px;color:var(--text-dim);font-size:15px}
+        a.link{color:var(--accent-glow);text-decoration:none;border-bottom:1px solid rgba(167,139,250,0.3);transition:border-color .2s}
+        a.link:hover{border-color:var(--accent-glow)}
+        .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;margin:16px 0 32px}
+        .card h3{font-size:16px;margin-bottom:8px}
+        .card p{margin-bottom:0}
+        code{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--border);padding:2px 7px;border-radius:5px;color:var(--green)}
+        footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;max-width:960px;margin:0 auto}
+        footer a{color:var(--text-dim);text-decoration:none;font-size:13px;margin:0 12px}footer a:hover{color:var(--text)}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">athena<span>ci/cd</span></a>
+        <div>
+            <a href="docs.html">Docs</a>
+            <a href="support.html">Support</a>
+            <a href="status.html">Status</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="content">
+            <h1>Support</h1>
+            <p class="subtitle">Need help with Athena CI/CD? Here's how to reach us.</p>
+
+            <div class="card">
+                <h3>GitHub Issues</h3>
+                <p>For bug reports, feature requests, and general questions, open an issue on our GitHub repository: <a class="link" href="https://github.com/Yovanyss/athena-cicd/issues">github.com/Yovanyss/athena-cicd/issues</a></p>
+            </div>
+
+            <div class="card">
+                <h3>Email Support</h3>
+                <p>For account-specific issues or private inquiries: <a class="link" href="mailto:support@athena-cicd.dev">support@athena-cicd.dev</a></p>
+            </div>
+
+            <h2>Common Issues</h2>
+
+            <h3 style="font-size:15px;margin:20px 0 8px;color:var(--accent-glow)">Athena doesn't create Check Runs on my PR</h3>
+            <p>Make sure the GitHub App has the <code>pull_request</code> event enabled under Permissions & Events. Also verify the app is installed on the repository (Settings → Integrations → GitHub Apps).</p>
+
+            <h3 style="font-size:15px;margin:20px 0 8px;color:var(--accent-glow)">Check Run stays "in progress" forever</h3>
+            <p>This usually means the pipeline encountered an error. Check your server logs for the specific error message. Common causes: invalid private key configuration, database connection issues, or missing permissions.</p>
+
+            <h3 style="font-size:15px;margin:20px 0 8px;color:var(--accent-glow)">Workflow dispatch doesn't trigger</h3>
+            <p>Ensure <code>ENABLE_WORKFLOW_DISPATCH=true</code> is set, the <code>athena-dynamic-ci.yml</code> workflow exists in your repo's main branch, and the app has <strong>Actions: Write</strong> permission.</p>
+
+            <h2>Response Time</h2>
+            <p>We aim to respond to GitHub Issues within 48 hours. Critical issues (service outages, security vulnerabilities) are prioritized.</p>
+        </section>
+    </div>
+    <footer>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="docs.html">Docs</a>
+        <a href="index.html">Home</a>
+    </footer>
+</body>
+</html>

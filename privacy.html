@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Athena CI/CD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e2e2ec;--text-dim:#8888a0;--accent:#6c5ce7;--accent-glow:#a78bfa;--green:#34d399;--font:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+        .container{max-width:780px;margin:0 auto;padding:0 24px}
+        nav{padding:20px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:20px 24px}
+        .logo{font-weight:700;font-size:18px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}.logo span{color:var(--accent-glow)}
+        nav a{color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:28px;transition:color .2s}nav a:hover{color:var(--text)}
+        .content{padding:60px 0 80px}
+        h1{font-size:36px;letter-spacing:-1px;margin-bottom:8px}
+        .updated{color:var(--text-dim);font-size:13px;font-family:var(--mono);margin-bottom:48px}
+        h2{font-size:20px;letter-spacing:-0.3px;margin:36px 0 12px}
+        p{margin-bottom:14px;color:var(--text-dim);font-size:15px}
+        ul{margin:0 0 16px 20px;color:var(--text-dim);font-size:15px}
+        li{margin-bottom:6px}
+        strong{color:var(--text)}
+        a.link{color:var(--accent-glow);text-decoration:none}
+        footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;max-width:960px;margin:0 auto}
+        footer a{color:var(--text-dim);text-decoration:none;font-size:13px;margin:0 12px}footer a:hover{color:var(--text)}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">athena<span>ci/cd</span></a>
+        <div>
+            <a href="docs.html">Docs</a>
+            <a href="support.html">Support</a>
+            <a href="status.html">Status</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="content">
+            <h1>Privacy Policy</h1>
+            <p class="updated">Last updated: May 26, 2026</p>
+
+            <h2>Overview</h2>
+            <p>Athena CI/CD ("Athena", "we", "our") is a GitHub App that analyzes pull request metadata to optimize CI/CD pipeline execution. This policy explains what data we collect, how we use it, and your rights.</p>
+
+            <h2>Data We Collect</h2>
+            <p>When installed on a repository, Athena receives webhook payloads from GitHub containing:</p>
+            <ul>
+                <li><strong>Pull request metadata</strong> — PR number, title, author username, labels, branch names, commit SHAs</li>
+                <li><strong>File change metadata</strong> — File names, paths, additions/deletions counts, and file status (added, modified, removed)</li>
+                <li><strong>Repository metadata</strong> — Repository name, owner, default branch, visibility</li>
+                <li><strong>Installation metadata</strong> — GitHub App installation ID, account name</li>
+                <li><strong>CI workflow results</strong> — Workflow names, job names, run conclusions (success/failure), run durations</li>
+            </ul>
+
+            <h2>Data We Do NOT Collect</h2>
+            <ul>
+                <li><strong>Source code</strong> — Athena does not read, download, or store file contents, diffs, or patches</li>
+                <li><strong>Secrets or credentials</strong> — We do not access repository secrets, environment variables, or tokens</li>
+                <li><strong>Personal data beyond GitHub usernames</strong> — We do not collect email addresses, real names, or other PII</li>
+                <li><strong>Issue or discussion content</strong> — We only process PR-related events</li>
+            </ul>
+
+            <h2>How We Use Data</h2>
+            <p>Data is used exclusively to:</p>
+            <ul>
+                <li>Classify changes and determine the intent of pull requests</li>
+                <li>Generate optimized CI execution plans</li>
+                <li>Create GitHub Check Runs with analysis results</li>
+                <li>Detect failure patterns and compute module health scores</li>
+                <li>Improve routing decisions for future pull requests on the same repository</li>
+            </ul>
+
+            <h2>Data Storage</h2>
+            <p>Webhook event metadata and analysis results are stored in a PostgreSQL database hosted on Railway. Data is retained for operational purposes (debugging, learning improvements) and is not shared with third parties.</p>
+
+            <h2>Data Sharing</h2>
+            <p>We do <strong>not</strong> sell, rent, or share your data with third parties. Analysis results are only written back to GitHub as Check Runs on your pull requests.</p>
+
+            <h2>Data Retention</h2>
+            <p>Webhook event records and analysis data are retained indefinitely for the purpose of improving Athena's routing intelligence. You may request deletion of your data by contacting us.</p>
+
+            <h2>Security</h2>
+            <ul>
+                <li>All webhook payloads are verified using HMAC-SHA256 signatures</li>
+                <li>GitHub API authentication uses short-lived installation tokens (1 hour TTL)</li>
+                <li>Database connections use TLS encryption</li>
+                <li>The application runs in isolated containers with non-root users</li>
+            </ul>
+
+            <h2>Your Rights</h2>
+            <p>You can:</p>
+            <ul>
+                <li><strong>Uninstall</strong> — Remove Athena from your repositories at any time via GitHub Settings</li>
+                <li><strong>Request data deletion</strong> — Contact us to delete all stored data for your repositories</li>
+                <li><strong>Request data export</strong> — Contact us for a copy of the data we hold about your repositories</li>
+            </ul>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update this policy from time to time. Significant changes will be communicated through our GitHub repository.</p>
+
+            <h2>Contact</h2>
+            <p>For privacy-related inquiries: <a class="link" href="mailto:privacy@athena-cicd.dev">privacy@athena-cicd.dev</a></p>
+            <p>GitHub: <a class="link" href="https://github.com/Yovanyss/athena-cicd">github.com/Yovanyss/athena-cicd</a></p>
+        </section>
+    </div>
+    <footer>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+        <a href="docs.html">Docs</a>
+        <a href="index.html">Home</a>
+    </footer>
+</body>
+</html>

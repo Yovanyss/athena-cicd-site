@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — Athena CI/CD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e2e2ec;--text-dim:#8888a0;--accent:#6c5ce7;--accent-glow:#a78bfa;--green:#34d399;--font:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+        .container{max-width:780px;margin:0 auto;padding:0 24px}
+        nav{padding:20px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto;padding:20px 24px}
+        .logo{font-weight:700;font-size:18px;letter-spacing:-0.5px;color:var(--text);text-decoration:none}.logo span{color:var(--accent-glow)}
+        nav a{color:var(--text-dim);text-decoration:none;font-size:14px;margin-left:28px;transition:color .2s}nav a:hover{color:var(--text)}
+        .content{padding:60px 0 80px}
+        h1{font-size:36px;letter-spacing:-1px;margin-bottom:8px}
+        .updated{color:var(--text-dim);font-size:13px;font-family:var(--mono);margin-bottom:48px}
+        h2{font-size:20px;letter-spacing:-0.3px;margin:36px 0 12px}
+        p{margin-bottom:14px;color:var(--text-dim);font-size:15px}
+        ul{margin:0 0 16px 20px;color:var(--text-dim);font-size:15px}
+        li{margin-bottom:6px}
+        strong{color:var(--text)}
+        a.link{color:var(--accent-glow);text-decoration:none}
+        footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;max-width:960px;margin:0 auto}
+        footer a{color:var(--text-dim);text-decoration:none;font-size:13px;margin:0 12px}footer a:hover{color:var(--text)}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">athena<span>ci/cd</span></a>
+        <div>
+            <a href="docs.html">Docs</a>
+            <a href="support.html">Support</a>
+            <a href="status.html">Status</a>
+        </div>
+    </nav>
+    <div class="container">
+        <section class="content">
+            <h1>Terms of Service</h1>
+            <p class="updated">Last updated: May 26, 2026</p>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>By installing or using Athena CI/CD ("Athena", "the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not install or use the Service.</p>
+
+            <h2>2. Description of Service</h2>
+            <p>Athena is a GitHub App that analyzes pull request metadata to generate optimized CI/CD execution plans. The Service operates autonomously through GitHub's Checks API and webhook system. Athena creates Check Runs on pull requests to communicate analysis results and may dispatch GitHub Actions workflows when configured to do so.</p>
+
+            <h2>3. Eligibility</h2>
+            <p>You must have a valid GitHub account and authorization to install GitHub Apps on the repositories where you use Athena. If installing on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.</p>
+
+            <h2>4. Free Service</h2>
+            <p>Athena is currently offered free of charge. We reserve the right to introduce paid plans in the future with reasonable notice. Existing free functionality will not be removed without notice.</p>
+
+            <h2>5. Your Responsibilities</h2>
+            <ul>
+                <li>You are responsible for the repositories and workflows where Athena is installed</li>
+                <li>You are responsible for configuring your CI/CD workflows appropriately</li>
+                <li>You must not use Athena for any unlawful purpose or in violation of GitHub's Terms of Service</li>
+                <li>You must not attempt to reverse engineer, exploit, or abuse the Service</li>
+            </ul>
+
+            <h2>6. Data and Privacy</h2>
+            <p>Our collection and use of data is governed by our <a class="link" href="privacy.html">Privacy Policy</a>. By using the Service, you consent to the data practices described therein.</p>
+
+            <h2>7. GitHub Permissions</h2>
+            <p>Athena requests specific GitHub permissions (Checks, Contents, Pull Requests, Actions, Statuses) required for its operation. You may review and modify these permissions at any time through your GitHub App installation settings. Revoking required permissions may prevent Athena from functioning correctly.</p>
+
+            <h2>8. Service Availability</h2>
+            <p>We strive to maintain high availability but do not guarantee uninterrupted service. Athena depends on GitHub's API and webhook infrastructure, which is outside our control. Scheduled maintenance will be communicated in advance when possible.</p>
+
+            <h2>9. Disclaimer of Warranties</h2>
+            <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.</p>
+            <p>Athena's CI/CD analysis and execution plans are generated through automated heuristics and should not be relied upon as the sole quality gate for production deployments. You remain responsible for validating your code through appropriate testing practices.</p>
+
+            <h2>10. Limitation of Liability</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, ATHENA CI/CD AND ITS MAINTAINERS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM YOUR USE OF THE SERVICE, INCLUDING BUT NOT LIMITED TO:</p>
+            <ul>
+                <li>Skipped CI jobs that would have caught a bug</li>
+                <li>Incorrect change classifications or execution plans</li>
+                <li>Service downtime or webhook processing delays</li>
+                <li>Unauthorized access resulting from a security breach</li>
+            </ul>
+
+            <h2>11. Indemnification</h2>
+            <p>You agree to indemnify and hold harmless Athena CI/CD and its maintainers from any claims, damages, or expenses arising from your use of the Service or violation of these Terms.</p>
+
+            <h2>12. Modifications to Terms</h2>
+            <p>We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the revised Terms. Significant changes will be communicated through our GitHub repository.</p>
+
+            <h2>13. Termination</h2>
+            <p>You may stop using Athena at any time by uninstalling the GitHub App from your account or repositories. We may suspend or terminate access to the Service if you violate these Terms or if we discontinue the Service.</p>
+
+            <h2>14. Governing Law</h2>
+            <p>These Terms shall be governed by and construed in accordance with applicable law, without regard to conflict of law provisions.</p>
+
+            <h2>15. Contact</h2>
+            <p>Questions about these Terms: <a class="link" href="mailto:legal@athena-cicd.dev">legal@athena-cicd.dev</a></p>
+            <p>GitHub: <a class="link" href="https://github.com/Yovanyss/athena-cicd">github.com/Yovanyss/athena-cicd</a></p>
+        </section>
+    </div>
+    <footer>
+        <a href="privacy.html">Privacy</a>
+        <a href="support.html">Support</a>
+        <a href="docs.html">Docs</a>
+        <a href="index.html">Home</a>
+    </footer>
+</body>
+</html>

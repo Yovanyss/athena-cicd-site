@@ -1,0 +1,62 @@
+name: Athena Dynamic CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      athena_plan_id:
+        required: true
+        type: string
+      athena_pr_number:
+        required: true
+        type: string
+      athena_head_sha:
+        required: true
+        type: string
+      athena_execution_mode:
+        required: true
+        type: string
+      athena_jobs_to_run:
+        required: true
+        type: string
+      athena_plan_payload:
+        required: true
+        type: string
+
+jobs:
+  athena-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show Athena execution plan
+        run: |
+          echo "Plan: ${{ inputs.athena_plan_id }}"
+          echo "PR: ${{ inputs.athena_pr_number }}"
+          echo "Mode: ${{ inputs.athena_execution_mode }}"
+          echo "Jobs: ${{ inputs.athena_jobs_to_run }}"
+
+  docs_lint:
+    if: contains(inputs.athena_jobs_to_run, 'docs_lint')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Run docs lint command here"
+
+  frontend_unit:
+    if: contains(inputs.athena_jobs_to_run, 'frontend_unit')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Run frontend unit tests here"
+
+  backend_unit:
+    if: contains(inputs.athena_jobs_to_run, 'backend_unit')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Run backend unit tests here"
+
+  security_scan:
+    if: contains(inputs.athena_jobs_to_run, 'security_scan')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Run security scan here"
